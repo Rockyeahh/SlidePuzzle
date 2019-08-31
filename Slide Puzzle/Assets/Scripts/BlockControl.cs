@@ -6,15 +6,48 @@ public class BlockControl : MonoBehaviour
 
     // THIS NEEDS TO BE ATTACHED TO THE BLOCKS. Maybe not?
 {
-    // Start is called before the first frame update
-    void Start()
+
+    private GameObject selectedBlock; // should = highlighted or a different colour or something.
+    private GameObject deselectedBlock;
+    private bool dragging = false;
+    private float distance;
+    private Vector2 startDist;
+
+    void OnMouseEnter()
     {
-        
+        // Highlights the block?
+    }
+
+    void OnMouseExit()
+    {
+        // ?
+    }
+
+    void OnMouseDown()
+    {
+        distance = Vector3.Distance(transform.position, Camera.main.transform.position);
+        dragging = true;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Vector2 rayPoint = ray.GetPoint(distance);
+        startDist = transform.position - rayPoint;
+    }
+
+    void OnMouseUp()
+    {
+        dragging = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if (dragging)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Vector3 rayPoint = ray.GetPoint(distance);
+            transform.position = rayPoint + startDist;
+        }
+
         if (Input.GetMouseButtonDown(0))
             //Debug.Log ("clicked");
         {
