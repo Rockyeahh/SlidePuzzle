@@ -25,11 +25,11 @@ public class BlockControl : MonoBehaviour
 
     void OnMouseDown()
     {
-        distance = Vector3.Distance(transform.position, Camera.main.transform.position);
+        distance = Vector3.Distance(transform.position, Camera.main.transform.position); // returns the distance between this scripts position and the cameras position.
         dragging = true;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); // 
         Vector2 rayPoint = ray.GetPoint(distance);
-        startDist = transform.position - rayPoint;
+        startDist = (Vector2)transform.position - rayPoint;
     }
 
     void OnMouseUp()
@@ -44,7 +44,7 @@ public class BlockControl : MonoBehaviour
         if (dragging)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Vector3 rayPoint = ray.GetPoint(distance);
+            Vector2 rayPoint = ray.GetPoint(distance);
             transform.position = rayPoint + startDist;
         }
 
